@@ -2640,14 +2640,17 @@ export const playFighterTurn = (
   }
 
   // Remove active skills
-  fighter.activeSkills.forEach((skill) => {
-    // Add skill expire step
-    fightData.steps.push({
-      a: StepType.SkillExpire,
-      b: fighter.index,
-      s: SkillByName[skill.name],
+  // A fighter killed during its own turn must not emit steps after its Death step
+  if (fighter.hp > 0) {
+    fighter.activeSkills.forEach((skill) => {
+      // Add skill expire step
+      fightData.steps.push({
+        a: StepType.SkillExpire,
+        b: fighter.index,
+        s: SkillByName[skill.name],
+      });
     });
-  });
+  }
   fighter.activeSkills = [];
 
   // Check if fighter needs and can moveBack

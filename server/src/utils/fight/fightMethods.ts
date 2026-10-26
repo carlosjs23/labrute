@@ -698,7 +698,7 @@ const registerHit = ({
 
   opponents.forEach((opponent) => {
     // Survive with 1 HP if `survival` skill
-    if (opponent.survival && opponent.hp <= 1) {
+    if (opponent.survival && opponent.hp <= 0) {
       opponent.survival = false;
       opponent.hp = 1;
 
